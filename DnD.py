@@ -1,16 +1,8 @@
 import random
+import math
 
 def rollD20():
     return(random.randint(1,20))
-
-# def sortByIntiative(roster):
-#     for idx in range(len(roster)):
-#         for fighter2 in range(roster:
-#             if fighter1.initiative < fighter2.initiative:
-#                 placeholder = fighter1
-#                 fighter1 = fighter2
-#                 fighter2 = placeholder
-#     return(roster)
 
 def sortByIntiative(arr):
     num = len(arr)
@@ -19,10 +11,9 @@ def sortByIntiative(arr):
             if arr[j].initiative > arr[j+1].initiative :
                 arr[j], arr[j+1] = arr[j+1], arr[j]
 
-    temp = arr
-    for i in range(num):
-        arr[i] = temp[num-i-1]
-        print(arr.name)
+
+    for i in range(math.floor(num/2)):
+        arr[i],arr[num-i-1] = arr[num-i-1],arr[i]
 
     return(arr)
 
