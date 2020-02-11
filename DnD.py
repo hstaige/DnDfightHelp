@@ -1,9 +1,9 @@
 import random
 import math
-
+import keyboard
 
 def rollD20():
-    return (random.randint(1, 20))
+    return random.randint(1, 20)
 
 
 def sortByIntiative(arr):
@@ -16,7 +16,33 @@ def sortByIntiative(arr):
     for i in range(math.floor(num / 2)):
         arr[i], arr[num - i - 1] = arr[num - i - 1], arr[i]
 
-    return (arr)
+    return arr
+
+
+def printFighters(roster):
+    for fighter in roster:
+        print('%-2d %s' % (fighter.initiative, fighter.name))
+    print('All Done!\n\n')
+
+
+def goDownList(roster):
+    roster.append(roster[0])
+    roster.pop(0)
+    return roster
+
+
+def mainGameLoop(roster):
+    notExiting = True
+    timer = 0
+
+    while notExiting:
+        if keyboard.is_pressed('n') and timer > 10000:
+            roster = goDownList(roster)
+            printFighters(roster)
+            timer = 0
+        if keyboard.is_pressed('e'):
+            notExiting = False
+        timer += 1
 
 
 class combatant():
@@ -24,7 +50,6 @@ class combatant():
         self.name = name
         self.enemOrFriend = enemOrFriend
         self.initiative = rollD20() + dexMod
-
 
 def main():
     combats = []
@@ -38,8 +63,5 @@ def main():
 
     combats = sortByIntiative(combats)
 
-    for fighter in combats:
-        print('%-2d %s' % (fighter.initiative, fighter.name))
-
-
+    mainGameLoop(combats)
 main()
